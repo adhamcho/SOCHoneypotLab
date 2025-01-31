@@ -57,7 +57,7 @@ Using Microsoft Sentinel as my SIEM, I create a workbook for my world map.
 ![image](https://github.com/user-attachments/assets/87320945-2517-43b4-be4b-e7983471f5b5)
 
 
-This World Map shows where in the world attacks are coming from, according to the geo data from the logs. 
+This World Map shows where in the world my honeypot VM is being attacked from, according to the geo data from the logs. 
 
 
 
