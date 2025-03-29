@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 # SOCHoneypotLab
-=======
+
 <h1>Implementing a SOC and Honeypot in Azure</h1>
 
 
