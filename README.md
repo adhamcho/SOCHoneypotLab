@@ -12,7 +12,7 @@ The system was intentionally configured to attract malicious traffic, allowing m
 
 A custom PowerShell script was used to extract attacker IP addresses, enrich them with geolocation data, and display attack origins on a global map.
 
-This project helped me understand how real-world SOC environments detect and analyze authentication-based attacks.
+This project demonstrates how SOC environments detect and analyze authentication-based attacks.
 
 
 <h2>Languages and Utilities Used</h2>
@@ -26,7 +26,7 @@ This project helped me understand how real-world SOC environments detect and ana
 
 - <b>Windows 10</b> (21H2)
 
-<h2>Program walk-through:</h2>
+<h2>SOC Workflow & Implementation:</h2>
 
 
 
@@ -34,9 +34,9 @@ To begin, I created a virtual machine on Azure to be used as a honeypot.
 <img width="1598" height="721" alt="hpotvmex" src="https://github.com/user-attachments/assets/208d54b6-0b60-4174-9eed-fc6d4a08930b" />
 
 
-I created a username and password, and a network group to allow all ports to access the VM, in order to be open to the public internet. 
+Configured authentication credentials and network security rules to expose the VM to the public internet.
 
-I connected to my VM using RDP and disabled all firewalls.
+Connected via RDP and disabled host-based firewall protections to simulate a vulnerable target.
 ![image](https://github.com/user-attachments/assets/d3a8a8e9-5bd4-4d0f-b572-a4f91ac6ff26)
 
 
