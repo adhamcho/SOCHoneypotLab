@@ -48,7 +48,7 @@ I implemented a PowerShell script to extract failed RDP login attempts from Wind
 
 ![image](https://github.com/user-attachments/assets/eb92d024-a13b-49c1-9c5f-97989f4e2918)
 
-These logs show repeated failed login attempts (Event ID 4625), indicating a brute force attack. 
+These logs show repeated failed login attempts, indicating a brute force attack. 
 Multiple attempts targeting usernames such as "Administrator" suggest automated attack behavior from external sources.
 
 
@@ -71,11 +71,16 @@ The data demonstrates how exposed systems are continuously scanned and attacked 
 <h2>Key Results</h2>
 
 - Detected thousands of RDP brute force login attempts from external IP addresses
-- Identified repeated failed login attempts using Event ID 4625 (failed authentication)
+- Identified repeated failed login attempts during brute force activity
 - Observed attack patterns targeting common usernames such as "Administrator"
 - Visualized global attack distribution using Microsoft Sentinel Workbooks
 
+<h2>Analysis & SOC Perspective</h2>
 
+- Repeated failed authentication attempts are commonly associated with brute force attacks  
+- Repeated login attempts against "Administrator" suggest automated attack scripts  
+- A SOC analyst could create alerts for repeated failed login attempts from the same IP  
+- Enforcing account lockout policies or MFA would significantly reduce attack success  
 
 
 
