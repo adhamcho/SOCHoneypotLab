@@ -31,8 +31,7 @@ This project helped me understand how real-world SOC environments detect and ana
 
 
 To begin, I created a virtual machine on Azure to be used as a honeypot. 
-![image](https://github.com/user-attachments/assets/9bde243a-0dd5-4111-a275-5c4a6b0451ed)
-
+<img width="1598" height="721" alt="hpotvmex" src="https://github.com/user-attachments/assets/208d54b6-0b60-4174-9eed-fc6d4a08930b" />
 
 
 I created a username and password, and a network group to allow all ports to access the VM, in order to be open to the public internet. 
