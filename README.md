@@ -6,8 +6,13 @@
 
 
 <h2>Description</h2>
-In this project I setup Azure Sentinel (SIEM) and connected it to a live virtual machine acting as a honey pot. I observed live attacks (RDP Brute Force) from all around the world. I used a custom PowerShell script to look up the attackers Geolocation information and plot it on the Azure Sentinel Map.
-<br />
+This project simulates a basic Security Operations Center (SOC) using Microsoft Sentinel and a publicly exposed Windows virtual machine acting as a honeypot.
+
+The system was intentionally configured to attract malicious traffic, allowing me to monitor and analyze real-world attack attempts. I focused on detecting RDP brute force activity by collecting Windows Event Logs, ingesting them into Azure Log Analytics, and visualizing the data in Microsoft Sentinel.
+
+A custom PowerShell script was used to extract attacker IP addresses, enrich them with geolocation data, and display attack origins on a global map.
+
+This project helped me understand how real-world SOC environments detect and analyze authentication-based attacks.
 
 
 <h2>Languages and Utilities Used</h2>
@@ -39,27 +44,36 @@ I connected to my VM using RDP and disabled all firewalls.
 
 
 
-I downloaded a Powershell script to use in Powershell ISE, which extracts RDP failed login logs from Windows Event Viewer and the attacker’s GEO locations.
+I implemented a PowerShell script to extract failed RDP login attempts from Windows Event Viewer and enrich attacker data with geolocation information.
 
 ![image](https://github.com/user-attachments/assets/eb92d024-a13b-49c1-9c5f-97989f4e2918)
 
-(My Powershell ISE log) 
+These logs show repeated failed login attempts (Event ID 4625), indicating a brute force attack. 
+Multiple attempts targeting usernames such as "Administrator" suggest automated attack behavior from external sources.
 
 
 
 ![image](https://github.com/user-attachments/assets/3634ba09-1182-4eb1-b761-c9bba5833f5b)
-Logs are being exported to Log Analytics workspace on Microsoft Azure with the raw data organized with a custom query for readability
+Logs were ingested into Azure Log Analytics and parsed using a custom KQL query to extract fields such as timestamp, username, source IP, and geographic data.
 
 
 
-Using Microsoft Sentinel as my SIEM, I create a workbook for my world map.
+Using Microsoft Sentinel as my SIEM, I created a workbook for my world map.
 
 
 ![image](https://github.com/user-attachments/assets/da2824e9-5595-4591-b84a-a0ac99f93989)
 
 
+This visualization highlights the global distribution of RDP brute force attacks targeting the honeypot. 
+The data demonstrates how exposed systems are continuously scanned and attacked by automated sources across multiple regions.
 
-This World Map shows where in the world my honeypot VM is being attacked from, according to the geo data from the logs. 
+
+<h2>Key Results</h2>
+
+- Detected thousands of RDP brute force login attempts from external IP addresses
+- Identified repeated failed login attempts using Event ID 4625 (failed authentication)
+- Observed attack patterns targeting common usernames such as "Administrator"
+- Visualized global attack distribution using Microsoft Sentinel Workbooks
 
 
 
