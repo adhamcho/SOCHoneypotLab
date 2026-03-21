@@ -68,18 +68,13 @@ The data demonstrates how exposed systems are continuously scanned and attacked 
 
 <h2>Detection Logic</h2>
 
-To detect RDP brute-force activity, I analyzed failed RDP login events collected from the honeypot and ingested into Azure Log Analytics.
+To detect RDP brute-force activity, I analyzed failed login attempts collected from the honeypot and ingested into Azure Log Analytics.
 
-Using KQL, I first parsed raw log data from a custom log table (FAILED_RDP_WITH_GEO_CL) to extract key fields such as username, source IP address, timestamp, and geographic information. This allowed structured analysis of authentication attempts and attacker behavior.
+Using KQL, I parsed data from a custom log table (FAILED_RDP_WITH_GEO_CL) to extract fields such as timestamp, username, source IP address, and geographic information.
 
-Based on observed attack patterns, I designed detection logic to identify repeated failed authentication attempts from the same IP address within a short time window:
+By examining repeated login failures from the same IP address over short periods, I identified patterns consistent with automated brute-force attacks.
 
-SecurityEvent
-| where EventID == 4625
-| summarize FailedAttempts = count() by IpAddress, bin(TimeGenerated, 5m)
-| where FailedAttempts > 10
-
-This logic flags IP addresses generating excessive failed login attempts, which is indicative of automated brute-force activity.
+This approach demonstrates how authentication logs can be used in a SOC environment to detect suspicious login behavior and identify potential threats.
 
 
 <h2>Key Results</h2>
