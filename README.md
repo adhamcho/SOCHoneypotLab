@@ -66,6 +66,21 @@ Using Microsoft Sentinel as my SIEM, I created a workbook for my world map.
 This visualization highlights the global distribution of RDP brute force attacks targeting the honeypot. 
 The data demonstrates how exposed systems are continuously scanned and attacked by automated sources across multiple regions.
 
+<h2>Detection Logic</h2>
+
+To detect RDP brute-force activity, I analyzed failed RDP login events collected from the honeypot and ingested into Azure Log Analytics.
+
+Using KQL, I first parsed raw log data from a custom log table (FAILED_RDP_WITH_GEO_CL) to extract key fields such as username, source IP address, timestamp, and geographic information. This allowed structured analysis of authentication attempts and attacker behavior.
+
+Based on observed attack patterns, I designed detection logic to identify repeated failed authentication attempts from the same IP address within a short time window:
+
+SecurityEvent
+| where EventID == 4625
+| summarize FailedAttempts = count() by IpAddress, bin(TimeGenerated, 5m)
+| where FailedAttempts > 10
+
+This logic flags IP addresses generating excessive failed login attempts, which is indicative of automated brute-force activity.
+
 
 <h2>Key Results</h2>
 
@@ -74,12 +89,23 @@ The data demonstrates how exposed systems are continuously scanned and attacked 
 - Observed attack patterns targeting common usernames such as "Administrator"
 - Visualized global attack distribution using Microsoft Sentinel Workbooks
 
+
 <h2>Analysis & SOC Perspective</h2>
 
-- Repeated failed authentication attempts are commonly associated with brute force attacks  
-- Repeated login attempts against "Administrator" suggest automated attack scripts  
-- A SOC analyst could create alerts for repeated failed login attempts from the same IP  
-- Enforcing account lockout policies or MFA would significantly reduce attack success  
+The observed attack patterns indicate automated brute-force activity targeting exposed RDP services.
+
+Repeated failed login attempts from the same IP and frequent targeting of usernames such as "Administrator" suggest scripted attacks rather than manual intrusion attempts.
+
+From a SOC perspective, this activity can be detected using authentication logs and correlated across time to identify abnormal login behavior.
+
+Recommended mitigation strategies include:
+
+- Enforcing account lockout policies after repeated failed attempts  
+- Enabling multi-factor authentication (MFA)  
+- Restricting RDP access to trusted IP ranges  
+- Blocking or rate-limiting suspicious source IP addresses  
+
+These controls significantly reduce the effectiveness of brute-force attacks and limit exposure of publicly accessible systems.
 
 
 
